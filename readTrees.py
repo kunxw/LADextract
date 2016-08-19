@@ -104,12 +104,18 @@ class readTrees:
                 # j -= 9
 
     # convert to txt
-    def las2txt(self, las_file):
+    def las2txt(self, las_file, extract_code = 'xyznca'):
         FNULL = open(os.devnull, 'w')    #use this if you want to suppress output to stdout from the subprocess
         args = "C:\School\\14au\Research\LAStools\LAStools\\bin\las2txt.exe -i " + \
-               self.defOutName + las_file + ".las -o " + self.defOutName + las_file + ".txt -parse xyznca"
+               self.defOutName + las_file + ".las -o " + self.defOutName + las_file + ".txt -parse " + extract_code
         subprocess.call(args, stdout=FNULL, stderr=FNULL, shell=False)
 
+def las2txt(fin, fout, extract_code='xyznca'):
+    print 'extracting txt'
+    FNULL = open(os.devnull, 'w')  # use this if you want to suppress output to stdout from the subprocess
+    args = "C:\School\\14au\Research\LAStools\LAStools\\bin\las2txt.exe -i " + \
+           fin + " -o " + fout + " -parse " + extract_code
+    subprocess.call(args, stdout=FNULL, stderr=FNULL, shell=False)
 
 def read_line(line):
     # print line

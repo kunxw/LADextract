@@ -20,7 +20,7 @@ class LAD:
 
         # set by setVoxel
         self.vSet = 0
-        self.limits = [999, -999] # min, max
+        self.limits = [99999, -99999] # min, max
         self.vNum = vNum
         self.h = 0
         self.heights = []
@@ -65,7 +65,7 @@ class LAD:
 
         self.points = []
 
-        for line in file:
+        for line in file.read().splitlines():
             pt = self.readline(line)
             self.points.append(pt)
 
@@ -113,7 +113,7 @@ class LAD:
                     self.voxCount[i] += 1/pt[3]
                     self.diSum_vox[i] += (self.limits[i+1]-pt[2])/math.cos(math.radians(pt[5]))
                     # classification
-                    if pt[4] in [3, 4, 5]:
+                    if pt[4] in [1,3, 4, 5]:
                         self.vegCount[i] += 1/pt[3]
                         self.diSum_veg[i] += (self.limits[i+1]-pt[2])/math.cos(math.radians(pt[5]))
                     # add to dg of all voxels above it
@@ -157,7 +157,7 @@ class LAD:
         # for i in reversed(self.lad): print i
 
     def readline(self, line):
-        return tuple([float(i) for i in line.split(" ")])
+        return tuple([float(i) for i in line.split()])
 
     def pt_lad(self):
         for i in range(1, self.vNum+1):
